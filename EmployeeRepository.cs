@@ -121,5 +121,34 @@ namespace Employee_Payroll_Problem
                 sqlConnection.Close();
             }
         }
+        /// <summary>
+        /// UC5- Delete employee 
+        /// </summary>
+        /// <param name="model"></param>
+        public static void DeleteEmployee(EmployeePayroll model)
+        {
+            try
+            {
+                sqlConnection = new SqlConnection(connectionString);
+                SqlCommand command = new SqlCommand("dbo.spDeleteEmployee", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                command.Parameters.AddWithValue("@Name", model.Name);
+                command.Parameters.AddWithValue("@Id", model.Id);
+                int num = command.ExecuteNonQuery();
+                if (num != 0)
+                    Console.WriteLine("Employee Delete Successfully");
+                else
+                    Console.WriteLine("Something went Wrong");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
     }
 }
