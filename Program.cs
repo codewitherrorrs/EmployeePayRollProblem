@@ -33,6 +33,19 @@ namespace EmployeePayrollProblem
                         EmployeeRepository.GetAllEmployees();
                         Console.Write("\nPress any key to continue...... ");
                         break;
+                    case 3:
+                        Console.Clear();
+                        EmployeePayroll payRoll = new EmployeePayroll();
+                        payRoll.Name = "Jyoti";
+                        payRoll.Basic_Pay = 85000;
+                        payRoll.Address = "Noida";
+                        payRoll.Phone_Number = 7805982526;
+                        payRoll.Department = "Developer";
+                        EmployeeRepository.AddEmployee(payRoll);
+                        Console.WriteLine("Details of Employees After Update salary are\n-------------------------------------------");
+                        EmployeeRepository.GetAllEmployees();
+                        Console.Write("\nPress any key to continue...... ");
+                        break;
                     case 8:
                         Console.Clear();
                         break;
