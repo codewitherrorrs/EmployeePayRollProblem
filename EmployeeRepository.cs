@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,9 @@ namespace Employee_Payroll_Problem
     {
         public static string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=payroll_service;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         public static SqlConnection sqlConnection = null;
+        /// <summary>
+        /// UC-2 Retrieve employees data.
+        /// </summary>
         public static void GetAllEmployees()
         {
             try
@@ -42,6 +46,38 @@ namespace Employee_Payroll_Problem
                     }
                 }
 
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                sqlConnection.Close();
+            }
+        }
+
+        /// <summary>
+        /// UC3-Ability to update the salary i.e. the Basic_Pay for Employee Terisa to 3000000.00
+        /// </summary>
+        /// <param name="model"></param>
+        public static void UpdateEmployee(EmployeePayroll model)
+        {
+            try
+            {
+                sqlConnection = new SqlConnection(connectionString);
+                SqlCommand command = new SqlCommand("dbo.spUpdateEmployee", sqlConnection);
+                command.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                command.Parameters.AddWithValue("@Name", model.Name);
+                command.Parameters.AddWithValue("@Basic_Pay", model.Basic_Pay);
+                command.Parameters.AddWithValue("@Id", model.Id);
+                int num = command.ExecuteNonQuery();
+                if (num != 0)
+
+                    Console.WriteLine("Employee Updated Successfully");
+                else
+                    Console.WriteLine("Something went Wrong");
             }
             catch (Exception ex)
             {

@@ -1,4 +1,6 @@
-﻿namespace EmployeePayrollProblem
+﻿using Employee_Payroll_Problem;
+
+namespace EmployeePayrollProblem
 {
     public class Program
     {
@@ -8,13 +10,26 @@
             {
                 Console.Clear();
                 Console.WriteLine("Please select given options");
-                Console.WriteLine("1.CreateConnectionsWithDatabase\n" +
+                Console.WriteLine("1.Get all employees\n" +
+                    "2.Update employees salary\n" +
                     "8.Exit\n");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
                     case 1:
                         Console.Clear();
+                        Console.WriteLine("Details of Employees are\n----------------------------");
+                        EmployeeRepository.GetAllEmployees();
+                        Console.Write("\nPress any key to continue...... ");
+                        break;
+                    case 2:
+                        Console.Clear();
+                        EmployeePayroll payRoll1 = new EmployeePayroll();
+                        payRoll1.Name = "Terisa";
+                        payRoll1.Id = 5;
+                        payRoll1.Basic_Pay = 3000000;
+                        EmployeeRepository.UpdateEmployee(payRoll1);
+                        Console.WriteLine("Details of Employees After Update salary are\n-------------------------------------------");
                         EmployeeRepository.GetAllEmployees();
                         Console.Write("\nPress any key to continue...... ");
                         break;
